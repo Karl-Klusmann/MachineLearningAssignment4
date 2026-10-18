@@ -1,4 +1,4 @@
-# Random forests for network intrusion classification (ML441 Assignment 4)
+# Random forests for network intrusion classification (ML741 Assignment 4)
 
 Implementations from first principles of a classification tree, a random forest and a k-nearest-neighbour (k-NN) classifier, compared on attack-category classification of the UNSW-NB15 network-traffic subset (the Assignment 2 data). scikit-learn is used only as a reference to verify the implementations.
 
