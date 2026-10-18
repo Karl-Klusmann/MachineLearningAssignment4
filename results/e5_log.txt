@@ -1,0 +1,38 @@
+pool 104,157 instances, test 26,040; 10 training sets of about 52,078; forests of 200 trees
+training set 1/10 done (47 s)
+training set 2/10 done (96 s)
+training set 3/10 done (149 s)
+training set 4/10 done (197 s)
+training set 5/10 done (253 s)
+training set 6/10 done (312 s)
+training set 7/10 done (380 s)
+training set 8/10 done (445 s)
+training set 9/10 done (508 s)
+training set 10/10 done (562 s)
+
+every test instance weighted equally (zero-one loss)
+model                              macro-F1    loss    bias  net var  unb. var  b. var
+tree, fully grown                    0.5194  0.2308  0.1963   0.0345    0.0693  0.0348
+tree, pruned                         0.5516  0.2590  0.2474   0.0116    0.0392  0.0276
+bagging (m = 42, leaf 1)             0.5553  0.1905  0.1863   0.0042    0.0212  0.0170
+forest, default (m = 6, leaf 1)      0.5374  0.1891  0.1867   0.0024    0.0183  0.0159
+forest, m = 20, leaf 1               0.5565  0.1883  0.1855   0.0028    0.0191  0.0164
+final forest                         0.5920  0.1918  0.1890   0.0028    0.0208  0.0180
+final forest, hard voting            0.5961  0.1983  0.1955   0.0029    0.0219  0.0190
+
+every class weighted equally (1 - balanced accuracy)
+model                              macro-F1    loss    bias  net var  unb. var  b. var
+tree, fully grown                    0.5194  0.4785  0.4540   0.0246    0.0768  0.0523
+tree, pruned                         0.5516  0.3688  0.3541   0.0147    0.0651  0.0504
+bagging (m = 42, leaf 1)             0.5553  0.4550  0.4558  -0.0009    0.0322  0.0331
+forest, default (m = 6, leaf 1)      0.5374  0.4815  0.4945  -0.0130    0.0231  0.0361
+forest, m = 20, leaf 1               0.5565  0.4563  0.4688  -0.0125    0.0239  0.0364
+final forest                         0.5920  0.3727  0.3796  -0.0070    0.0314  0.0384
+final forest, hard voting            0.5961  0.3592  0.3677  -0.0085    0.0324  0.0409
+
+per class: bias / net variance (every test instance of the class weighted equally)
+model                                      Nor         Rec         Bac         DoS         Exp         Ana         Fuz         Wor         She         Gen
+tree, pruned                        0.23/-0.00  0.20/+0.01  0.75/-0.03  0.61/+0.02  0.28/+0.05  0.74/-0.06  0.16/+0.03  0.26/+0.07  0.19/+0.05  0.12/+0.00
+final forest                        0.10/+0.01  0.22/+0.01  0.76/-0.02  0.73/-0.00  0.18/+0.00  0.83/-0.07  0.32/-0.01  0.33/-0.01  0.20/+0.03  0.12/+0.00
+
+wrote results/e5_bias_variance.json

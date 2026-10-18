@@ -1,0 +1,68 @@
+final forest {'max_features': 20, 'min_samples_leaf': 5, 'sampling': 'bootstrap', 'sample_size': 1.0, 'class_beta': 1.0}, T = 500; voting: hard (OOB soft 0.6104 ± 0.0003, hard 0.6127)
+forest seed 1/10 done (90 s)
+forest seed 2/10 done (174 s)
+forest seed 3/10 done (259 s)
+forest seed 4/10 done (346 s)
+forest seed 5/10 done (434 s)
+forest seed 6/10 done (522 s)
+forest seed 7/10 done (616 s)
+forest seed 8/10 done (710 s)
+forest seed 9/10 done (802 s)
+forest seed 10/10 done (890 s)
+trees done (931 s)
+k-NN done (946 s)
+
+model                        macro-F1         10 seeds  accuracy bal. acc. weighted F1 detection false alarm
+final forest                   0.6149  0.6124 ± 0.0013    0.8119    0.6494      0.8278    0.9568      0.1216
+final forest, soft voting      0.6119  0.6112 ± 0.0011    0.8194    0.6396      0.8319    0.9411      0.0950
+final forest, hard voting      0.6149  0.6124 ± 0.0013    0.8119    0.6494      0.8278    0.9568      0.1216
+tree, fully grown              0.5455  0.5464 ± 0.0022    0.7822    0.5415      0.7921    0.8908      0.0929
+tree, pruned (own)             0.5745  0.5743 ± 0.0003    0.7361    0.6971      0.7685    0.9923      0.2537
+A2 tree (scikit-learn)         0.5845  0.5848 ± 0.0004    0.7388    0.6890      0.7689    0.9885      0.2460
+k-NN, A2                       0.4562                -    0.7628    0.4360      0.7547    0.8536      0.0886
+k-NN, revised                  0.4925                -    0.7434    0.5595      0.7650    0.9603      0.1890
+
+F1 per class (seed 0)
+class            support        forest   pruned tree       A2 tree  k-NN revised       k-NN A2
+Normal            17,144         0.916         0.851         0.855         0.878         0.892
+Reconnaissance     1,998         0.809         0.796         0.790         0.609         0.622
+Backdoor             376         0.078         0.191         0.212         0.174         0.040
+DoS                1,100         0.394         0.341         0.351         0.245         0.172
+Exploits           5,487         0.838         0.752         0.746         0.773         0.758
+Analysis             406         0.076         0.198         0.196         0.195         0.033
+Fuzzers            4,192         0.689         0.625         0.621         0.593         0.517
+Worms                 34         0.750         0.571         0.604         0.179         0.250
+Shellcode            291         0.668         0.506         0.574         0.383         0.381
+Generic            1,520         0.931         0.913         0.895         0.895         0.897
+
+comparison (A vs B)                                        macro-F1 A - B [95% CI]  p (Holm)      b      c  McNemar p (Holm)
+final forest vs tree, pruned (own)                       +0.0404 [+0.0299, +0.0495]    0.0035   3431    963         2.55e-302
+final forest vs tree, fully grown                        +0.0695 [+0.0555, +0.0851]    0.0035   2413   1447          6.30e-54
+final forest vs A2 tree (scikit-learn)                   +0.0304 [+0.0209, +0.0404]    0.0035   3387   1008         5.37e-281
+final forest vs k-NN, revised                            +0.1224 [+0.1094, +0.1358]    0.0035   3228   1000         2.23e-256
+final forest vs k-NN, A2                                 +0.1587 [+0.1390, +0.1796]    0.0035   3166   1567         9.54e-119
+tree, pruned (own) vs A2 tree (scikit-learn)             -0.0100 [-0.0189, -0.0013]    0.0220   1145   1234          7.12e-02
+k-NN, revised vs k-NN, A2                                +0.0362 [+0.0212, +0.0537]    0.0035   1834   2463          1.94e-21
+
+RQ4 (final forest, seed 0): error rate 0.1881
+  ambiguous instances: 7.0% of the set, error rate 0.933; unambiguous: 0.132; 34.8% of all errors fall on ambiguous instances
+  errors: attack as another attack 3,373 (55.1%), missed attacks 666 (10.9%), false alarms 2,084 (34.0%)
+  accuracy if every identical-feature group got its majority label: 0.9451
+  recall vs ceiling      Nor     Rec     Bac     DoS     Exp     Ana     Fuz     Wor     She     Gen
+  forest                0.88    0.78    0.17    0.34    0.81    0.10    0.77    0.88    0.86    0.90
+  majority label        1.00    1.00    0.32    0.69    0.93    0.22    0.90    0.91    1.00    0.97
+
+confusion matrix of the final forest (rows: true class, columns: predicted)
+          Nor    Rec    Bac    DoS    Exp    Ana    Fuz    Wor    She    Gen
+   Nor 15,060      9      1     19    164     16  1,823      0     48      4
+   Rec      2  1,558    216     29    104     73      5      0      8      3
+   Bac      0      6     64     57      9    230      2      0      6      2
+   DoS     13     21    250    378    268     96     26      1     39      8
+   Exp     55    251    256    209  4,445     99     80     12     57     23
+   Ana     61      1    228     68      8     40      0      0      0      0
+   Fuz    527      3    218     30     39     87  3,236      1     45      6
+   Wor      0      1      0      0      3      0      0     30      0      0
+   She      6      6      0      0     15      0     13      0    251      0
+   Gen      2      0     31     29     66     11     10      2      6  1,363
+
+wrote results/e6_final.json

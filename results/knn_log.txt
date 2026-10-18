@@ -1,0 +1,24 @@
+fold 1/5 done (14 s; 46 dimensions)
+fold 2/5 done (28 s; 46 dimensions)
+fold 3/5 done (41 s; 46 dimensions)
+fold 4/5 done (54 s; 46 dimensions)
+fold 5/5 done (67 s; 46 dimensions)
+
+best k for each voting rule (macro-F1, mean ± SE over folds)
+weighting   beta  best k          macro-F1  at k = 7
+uniform     0.00       5    0.4565 ± 0.0041    0.4542
+uniform     0.25      19    0.4900 ± 0.0062    0.4681
+uniform     0.50      41    0.4928 ± 0.0012    0.4688
+uniform     0.75      29    0.4692 ± 0.0018    0.4650
+uniform     1.00       7    0.4594 ± 0.0012    0.4594
+distance    0.00      11    0.4591 ± 0.0058    0.4549
+distance    0.25      71    0.4913 ± 0.0054    0.4617
+distance    0.50     101    0.4966 ± 0.0015    0.4629
+distance    0.75      81    0.4716 ± 0.0016    0.4592
+distance    1.00       3    0.4567 ± 0.0013    0.4535
+highest mean          {'k': 101, 'weighting': 'distance', 'beta': 0.5}  macro-F1 0.4966 ± 0.0015
+selected (1-SE rule)  {'k': 101, 'weighting': 'distance', 'beta': 0.5}  macro-F1 0.4966 ± 0.0015
+A2 configuration      {'k': 7, 'weighting': 'uniform', 'beta': 0.0}  macro-F1 0.4542 ± 0.0038
+selected - A2, per fold: +0.0544 +0.0384 +0.0394 +0.0426 +0.0372
+
+wrote results/tune_knn.json
